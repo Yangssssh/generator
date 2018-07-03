@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.mapper.hellomapper">
+
+	<!--如何定义resultmap -->
+	<resultMap id="helloresultmap" type="hello"	>
+		<id column="id_" property="id"/>
+		<result column="data_" property="data"/>
+	</resultMap>
+
+    <select id="findById" parameterType="String" resultType="hello">
+		select * from hello
+		<where>
+			<if test="data!='' and data!=null">
+				and data=#{data}
+			</if>
+		</where>
+	</select>
+
+	<select id="resultmapfindid" parameterType="int" resultMap="helloresultmap">
+		select id id_,data data_ from hello where id=#{id}
+	</select>
+</mapper>
